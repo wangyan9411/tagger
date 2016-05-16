@@ -316,7 +316,7 @@ class Model(object):
         params = []
         if word_dim:
             self.add_component(word_layer)
-            params.extend([word_input])
+            params.extend(word_layer.params)
         if char_dim:
             self.add_component(char_layer)
             self.add_component(char_lstm_for)
@@ -370,12 +370,7 @@ class Model(object):
         # Compile training function
         print 'Compiling...'
         if training:
-            _updates = Optimization(clip=5.0).get_updates(
-                lr_method_name, cost, params, **lr_method_parameters
-            )
-            updates = [(word_layer.embeddings,
-                        T.set_subtensor(word_input, _updates[0][1]))]
-            updates += _updates[1:]
+            updates = Optimization(clip=5.0).get_updates(lr_method_name, cost, params, **lr_method_parameters)
             f_train = theano.function(
                 inputs=train_inputs,
                 outputs=cost,
