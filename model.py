@@ -36,7 +36,7 @@ class Model(object):
                 os.makedirs(self.model_path)
             # Save the parameters to disk
             with open(self.parameters_path, 'wb') as f:
-                self.parameters = cPickle.dump(parameters, f)
+                cPickle.dump(parameters, f)
         else:
             assert parameters is None and models_path is None
             # Model location
