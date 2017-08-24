@@ -113,6 +113,7 @@ parameters['dropout'] = opts.dropout
 parameters['lr_method'] = opts.lr_method
 
 # Check parameters validity
+print(opts.train)
 assert os.path.isfile(opts.train)
 assert os.path.isfile(opts.dev)
 assert os.path.isfile(opts.test)
